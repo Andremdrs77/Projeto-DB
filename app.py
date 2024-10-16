@@ -14,8 +14,8 @@ db_config = {
 def index():
     return render_template('index.html')
 
-@app.route('/registro', methods=['GET','POST'])
-def registro():
+@app.route('/register', methods=['GET','POST'])
+def register():
     if request.method=='POST':
         conn = pymysql.connect(**db_config)
         cursor = conn.cursor()
@@ -29,6 +29,6 @@ def registro():
         conn.close()
 
         return redirect(url_for('index'))
-    return render_template('registro.html')
+    return render_template('register.html')
 
 
