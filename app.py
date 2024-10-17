@@ -25,8 +25,8 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
-@app.route('/registro', methods=['GET','POST'])
-def registro():
+@app.route('/register', methods=['GET','POST'])
+def register():
     if request.method=='POST':
         conn = pymysql.connect(**db_config)
         cursor = conn.cursor()
@@ -43,7 +43,7 @@ def registro():
         login_user(user)
 
         return redirect(url_for('index'))
-    return render_template('registro.html')
+    return render_template('register.html')
 
 @app.route('/login',methods=['GET','POST'])
 def login():
