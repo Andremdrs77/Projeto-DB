@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Adicionar tarefas</h1>
+    <form action="{{url_for('add')}}" method="post">
+        <input type="text" name="nome" placeholder="Nome da tarefa">
+        <input type="text" name="desc" placeholder="Descrição">
+        <input type="date" name="data_limite" placeholder="Data limite">
+        <select name="status" placeholder="Status" id="">
+            <option value="Concluída">Concluída</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Pendente">Pendente</option>
+        </select>
+        <button>Enviar</button>
+    </form>
+</body>
+</html>

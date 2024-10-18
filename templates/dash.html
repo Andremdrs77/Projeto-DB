@@ -6,6 +6,28 @@
     <title>Agenda DB - Dashboard</title>
 </head>
 <body>
-    Opa
+    <h1>Tarefas</h1>
+    
+    <ul>
+    {% for tarefa in tarefas %}
+        <li>
+            <p>Nome: {{ tarefa[1] }}</p>
+            <p>Descrição: {{ tarefa[2] }}</p>
+            <p>Data de criação: {{ tarefa[3] }}</p>
+            <p>Data limite: {{ tarefa[4] }}</p>
+            <p>Status: {{ tarefa[6] }}</p>
+            <button><a href="{{ url_for('update', id=tarefa[0]) }}">Modificar tarefa</a></button>
+            <button><a href="{{ url_for('delete', id=tarefa[0]) }}">Excluir tarefa</a></button>
+            
+            
+           
+        </li>
+        <br><br><br>
+    {% endfor %}
+    </ul>
+
+    <button><a href="{{ url_for('add') }}">Adicionar tarefas</a></button>
+    <button><a href="{{ url_for('logout') }}">Sair</a></button>
+    
 </body>
 </html>
