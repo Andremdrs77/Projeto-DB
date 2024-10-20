@@ -80,10 +80,10 @@ class Tarefa:
            return tarefas
 
     @classmethod
-    def add_tarefa(cls, nome, descricao, data, data_limite, status, user_id):
+    def add_tarefa(cls, nome, categoria, descricao, data, data_limite, status, prioridade user_id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO tb_tarefas (tar_nome,tar_descricao,tar_data,tar_data_limite,tar_status,tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s)',(nome,descricao,data,data_limite,status,user_id) )
+        cursor.execute('INSERT INTO tb_tarefas (tar_nome, tar_descricao, tar_data, tar_data_limite,tar_status,tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s)',(nome,descricao,data,data_limite,status,user_id) )
         conn.commit()
         conn.close()
     

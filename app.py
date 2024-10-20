@@ -84,12 +84,14 @@ def add():
         data = date.today()
         
         nome = request.form['nome']
+        categoria = request.form['categoria']
         desc = request.form['desc']
         data_limite = request.form['data_limite']
         status = request.form['status']
+        prioridade = request.form['prioridade']
 
         try:
-            Tarefa.add_tarefa(nome,desc,data,data_limite,status,user_id)
+            Tarefa.add_tarefa(nome, categoria, desc, data_limite, status, prioridade, id)
             return redirect(url_for('dash'))
         except:
             return 'Não foi possivél adicionar sua tarefa'
@@ -101,11 +103,13 @@ def add():
 def update(id):
     if request.method == 'POST':
         nome = request.form['nome']
+        categoria = request.form['categoria']
         desc = request.form['desc']
         data_limite = request.form['data_limite']
         status = request.form['status']
+        prioridade = request.form['prioridade']
 
-        Tarefa.update_tarefa(nome,desc,data_limite,status,id)
+        Tarefa.update_tarefa(nome, categoria, desc, data_limite, status, prioridade, id)
         return redirect(url_for('dash'))
     return render_template('update.html')
 

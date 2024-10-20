@@ -91,13 +91,23 @@
         <h1>Modificar tarefa</h1>
         <form method="post">
             <input type="text" name="nome" placeholder="Nome da tarefa" required>
-            <input type="text" name="desc" placeholder="Descrição" required>
-            <input type="date" name="data_limite" required>
+            <input type="text" name="desc" placeholder="Descrição">
+            <input type="date" name="data_limite">
+
             <select name="status" required>
                 <option value="Concluída">Concluída</option>
                 <option value="Em andamento">Em andamento</option>
                 <option value="Pendente">Pendente</option>
             </select>
+
+            <select name="prioridade" required>
+                <option value="Baixa">Baixa</option>
+                <option value="Média">Média</option>
+                <option value="Alta">Alta</option>
+            </select>
+
+            <input type="text" name="categoria">
+
             <button type="submit">Enviar</button>
         </form>
     </div>
