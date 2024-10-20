@@ -4,6 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda DB - Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 50px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            margin: 5px 0;
+        }
+        button {
+            margin-right: 10px;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: brown;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: gray;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .action-buttons button {
+            width: 150px;
+        }
+    </style>
 </head>
 <body>
     <h1>Tarefas</h1>
@@ -18,16 +71,13 @@
             <p>Status: {{ tarefa[6] }}</p>
             <button><a href="{{ url_for('update', id=tarefa[0]) }}">Modificar tarefa</a></button>
             <button><a href="{{ url_for('delete', id=tarefa[0]) }}">Excluir tarefa</a></button>
-            
-            
-           
         </li>
-        <br><br><br>
     {% endfor %}
     </ul>
 
-    <button><a href="{{ url_for('add') }}">Adicionar tarefas</a></button>
-    <button><a href="{{ url_for('logout') }}">Sair</a></button>
-    
+    <div class="action-buttons">
+        <button><a href="{{ url_for('add') }}">Adicionar tarefas</a></button>
+        <button><a href="{{ url_for('logout') }}">Sair</a></button>
+    </div>
 </body>
 </html>
