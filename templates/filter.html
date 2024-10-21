@@ -6,16 +6,17 @@
     <title>Agenda DB - Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #333;
+            color: #343a40;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 50px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: bold;
         }
         ul {
             list-style-type: none;
@@ -23,38 +24,66 @@
         }
         li {
             background: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
         p {
-            margin: 5px 0;
+            margin: 8px 0;
+            color: #495057;
         }
         button {
             margin-right: 10px;
             margin-top: 15px;
-            padding: 10px;
+            margin-bottom: 10px;
+            padding: 10px 15px;
             background-color: brown;
             border: none;
             border-radius: 5px;
             color: white;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
         button a {
             color: white;
             text-decoration: none;
         }
         button:hover {
-            background-color: gray;
+            background-color: #5a6268;
         }
         .action-buttons {
             margin-top: 20px;
             text-align: center;
         }
         .action-buttons button {
-            width: 150px;
+            width: 160px;
+            font-size: 16px;
+        }
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #343a40;
+        }
+        select, input[type="text"], input[type="date"] {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            width: calc(200px - 20px);
+            margin-right: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        select:focus, input:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
         }
     </style>
 </head>
@@ -74,7 +103,6 @@
                 <option value="Prazo">Prazo</option>
                 <option value="Status">Status</option>
                 <option value="Prioridade">Prioridade</option>
-
             </select>
             
             <div id="input">
@@ -84,7 +112,6 @@
             
             <button type="submit">Filtrar</button>
         </form>
-
     </div>
 
     <ul>
@@ -102,22 +129,19 @@
         </li>
     {% endfor %}
     </ul>
-
-
 </body>
 <script>
-    
 function updateInput() {
     const filtroSelect = document.getElementById('filtros');
     const dynamicInput = document.getElementById('input');
 
-    // Limpa o conteúdo anterior do dynamicInput
+    
     dynamicInput.innerHTML = '<label for="Valor">Valor:</label>';
     
     const Valor = document.createElement(filtroSelect.value === 'Prioridade' || filtroSelect.value === 'Status' ? 'select' : 'input');
     Valor.id = 'Valor'; 
     Valor.name ='Valor'
-    Valor.required = true; // Define o campo como obrigatório
+    Valor.required = true; 
 
     switch (filtroSelect.value) {
         case 'Nome':
@@ -131,7 +155,6 @@ function updateInput() {
             Valor.name = 'Valor';
             break;
         case 'Prioridade':
-            Valor.name = 'Valor';
         case 'Status':
             const options = filtroSelect.value === 'Prioridade' 
                 ? ['Baixa', 'Média', 'Alta'] 
@@ -152,6 +175,5 @@ function updateInput() {
 
     dynamicInput.appendChild(Valor);
 }
-
 </script>
 </html>
