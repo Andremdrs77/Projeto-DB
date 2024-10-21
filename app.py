@@ -21,6 +21,7 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
+
 @app.route('/register', methods=['GET','POST'])
 def register():
     if request.method=='POST':
@@ -37,6 +38,7 @@ def register():
 
         return redirect(url_for('index'))
     return render_template('register.html')
+
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -60,11 +62,8 @@ def login():
         else:
             texto = 'Usuário ou email inválidos'
     return render_template('login.html',texto=texto)
-    
-        
-        
- 
-    
+
+
 @app.route('/dash')
 @login_required
 def dash():
@@ -72,9 +71,32 @@ def dash():
     
     tarefas = Tarefa.get(user_id)
     return render_template('dash.html', tarefas=tarefas)
-        
-   
+
+
+@app.route('/filter', methods=['GET', 'POST'])
+@login_required
+def filter():
+    tarefas = []
+    if request.method == 'POST':
+        filtro = request.form['filtros']
+        valor = request.form['Valor']
+        if filtro == 'Nome':
+            tarefas = Tarefa.get_tarefa_by_nome(valor)
+        elif filtro == 'Categoria':
+            tarefas = Tarefa.get_tarefa_by_categoria(valor)
+        elif filtro == 'Descrição':
+            tarefas = Tarefa.get_tarefa_by_descricao(valor)
+        elif filtro == 'Prazo':
+            tarefas = Tarefa.get_tarefa_by_data_limite(valor)
+        elif filtro == 'Status':
+            tarefas = Tarefa.get_tarefa_by_status(valor)
+        elif filtro == 'Prioridade':
+            tarefas = Tarefa.get_tarefa_by_prioridade(valor)
+
+        return render_template('filter.html', tarefas=tarefas)
     
+    return render_template('filter.html', tarefas=tarefas)
+        
 
 @app.route('/add',methods=['GET','POST'])
 @login_required
@@ -97,6 +119,7 @@ def add():
             return f'Não foi possível adicionar sua tarefa, {id}'
         
     return render_template('add.html')
+
 
 @app.route('/update/<int:id>',methods=['GET','POST'])
 @login_required

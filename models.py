@@ -56,6 +56,7 @@ class User(UserMixin):
         conn = obter_conexao()
         cursor = conn.cursor()
         cursor.execute('INSERT INTO tb_usuarios (usr_nome, usr_email, usr_senha) VALUES (%s,%s,%s)', (nome,email,senha))
+
         conn.commit()
         conn.close()
 
@@ -71,12 +72,14 @@ class Tarefa:
        self.prioridade = prioridade  
        self.user_id = user_id
 
+
     @classmethod
     def get(cls, id):
            conn = obter_conexao()
            cursor = conn.cursor()
            cursor.execute('SELECT * FROM tb_tarefas WHERE tar_usr_id=%s',(id,))
            tarefas = cursor.fetchall()
+
            conn.close()
 
            return tarefas
@@ -86,6 +89,7 @@ class Tarefa:
         conn = obter_conexao()
         cursor = conn.cursor()
         cursor.execute('INSERT INTO tb_tarefas (tar_nome, tar_categoria, tar_descricao, tar_data, tar_data_limite, tar_status, tar_prioridade, tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',(nome, categoria, descricao, data, data_limite, status, prioridade, user_id) )
+
         conn.commit()
         conn.close()
     
@@ -94,6 +98,7 @@ class Tarefa:
         conn = obter_conexao()
         cursor = conn.cursor()
         cursor.execute('UPDATE tb_tarefas SET tar_nome=%s, tar_categoria=%s, tar_descricao=%s, tar_data_limite=%s, tar_status=%s, tar_prioridade=%s WHERE tar_id=%s',(nome, categoria, descricao, data_limite, status, prioridade, id) )
+
         conn.commit()
         conn.close()
     
@@ -101,12 +106,85 @@ class Tarefa:
     def get_tarefa_by_nome(cls, nome):
         conn = obter_conexao()
         cursor = conn.cursor()
-        cursor.execute(f'SELECT * FROM tb_tarefas WHERE tar_nome like "%{nome}%"')
+        query = 'SELECT * FROM tb_tarefas WHERE tar_nome LIKE %s'
+        cursor.execute(query, (f"%{nome}%",))
+        tarefas = cursor.fetchall()
 
+        cursor.close()
+        conn.close()
+
+        return tarefas
+    
+    @classmethod #Opção 2
+    def get_tarefa_by_categoria(cls, categoria):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        query = 'SELECT * FROM tb_tarefas WHERE tar_categoria=%s'
+        cursor.execute(query, (categoria,))
+        tarefas = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return tarefas
+    
+    @classmethod #Opção 3
+    def get_tarefa_by_descricao(cls, descricao):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        query = 'SELECT * FROM tb_tarefas WHERE tar_descricao LIKE %s'
+        cursor.execute(query, (f"%{descricao}%",))
+        tarefas = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return tarefas
+    
+    @classmethod #Opção 4
+    def get_tarefa_by_data_limite(cls, data_limite):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        query = 'SELECT * FROM tb_tarefas WHERE tar_data_limite=%s'
+        cursor.execute(query, (data_limite,))
+        tarefas = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return tarefas
+    
+    @classmethod #Opção 5
+    def get_tarefa_by_status(cls, status):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        query = 'SELECT * FROM tb_tarefas WHERE tar_status=%s'
+        cursor.execute(query, (status,))
+        tarefas = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return tarefas
+    
+    @classmethod #Opção 6
+    def get_tarefa_by_prioridade(cls, prioridade):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        query = 'SELECT * FROM tb_tarefas WHERE tar_prioridade=%s'
+        cursor.execute(query, (prioridade,))
+        tarefas = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        return tarefas
+    
     @classmethod
     def delete_tarefa(cls, id):
         conn = obter_conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM tb_tarefas WHERE tar_id=%s',(id,) )
+
         conn.commit()
         conn.close()

@@ -61,24 +61,10 @@
 <body>
     <h1>Tarefas</h1>
 
-    <ul>
-    {% for tarefa in tarefas %}
-        <li>
-            <p>Nome: {{ tarefa[1] }}</p>
-            <p>Categoria: {{ tarefa[2] }}</p>
-            <p>Descrição: {{ tarefa[3] }}</p>
-            <p>Data de criação: {{ tarefa[4] }}</p>
-            <p>Prazo: {{ tarefa[5] }}</p>
-            <p>Status: {{ tarefa[7] }}</p>
-            <p>Prioridade: {{ tarefa[8] }}</p>
-            <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
-            <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
-        </li>
-    {% endfor %}
-    </ul>
-
     <div class="action-buttons">
-        <form method="POST" action="{{ url_for('filter') }}">
+        <a href="{{ url_for('dash') }}"><button>Voltar</button></a>
+
+        <form method="POST" action="{{ url_for('filter')}}">
             <label for="filtros">Filtrar por:</label>
             <select name="filtros" id="filtros" required onchange="updateInput()">
                 <option value="" disabled selected>Escolha uma opção</option>
@@ -98,15 +84,29 @@
             
             <button type="submit">Filtrar</button>
         </form>
-        </form>
-        <a href="{{ url_for('add') }}"><button>Adicionar tarefas</button></a>
-        <a href="{{ url_for('logout') }}"><button>Sair</button></a>
 
-    
     </div>
+
+    <ul>
+    {% for tarefa in tarefas %}
+        <li>
+            <p>Nome: {{ tarefa[1] }}</p>
+            <p>Categoria: {{ tarefa[2] }}</p>
+            <p>Descrição: {{ tarefa[3] }}</p>
+            <p>Data de criação: {{ tarefa[4] }}</p>
+            <p>Prazo: {{ tarefa[5] }}</p>
+            <p>Status: {{ tarefa[7] }}</p>
+            <p>Prioridade: {{ tarefa[8] }}</p>
+            <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
+            <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
+        </li>
+    {% endfor %}
+    </ul>
+
+
 </body>
 <script>
-
+    
 function updateInput() {
     const filtroSelect = document.getElementById('filtros');
     const dynamicInput = document.getElementById('input');
