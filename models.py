@@ -55,7 +55,7 @@ class User(UserMixin):
     def add (cls, nome, email, senha):
         conn = obter_conexao()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO tb_usuarios (usr_nome,usr_email,usr_senha) VALUES (%s,%s,%s)', (nome,email,senha))
+        cursor.execute('INSERT INTO tb_usuarios (usr_nome, usr_email, usr_senha) VALUES (%s,%s,%s)', (nome,email,senha))
         conn.commit()
         conn.close()
 
@@ -85,15 +85,15 @@ class Tarefa:
     def add_tarefa(cls, nome, categoria, descricao, data, data_limite, status, prioridade, user_id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO tb_tarefas (tar_nome, tar_categoria, tar_descricao, tar_data, tar_data_limite,tar_status, tar_prioridade, tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s)',(nome,descricao,data,data_limite,status,user_id) )
+        cursor.execute('INSERT INTO tb_tarefas (tar_nome, tar_categoria, tar_descricao, tar_data, tar_data_limite,tar_status, tar_prioridade, tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s)',(nome, categoria, descricao, data, data_limite, status, prioridade, user_id) )
         conn.commit()
         conn.close()
     
     @classmethod
-    def update_tarefa(cls, nome, descricao, data_limite, status,id):
+    def update_tarefa(cls, nome, categoria, descricao, data_limite, status, prioridade, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        cursor.execute('UPDATE tb_tarefas SET tar_nome=%s, tar_descricao=%s, tar_data_limite=%s, tar_status=%s WHERE tar_id=%s',(nome,descricao,data_limite,status,id) )
+        cursor.execute('UPDATE tb_tarefas SET tar_nome=%s, tar_categoria=%s, tar_descricao=%s, tar_data_limite=%s, tar_status=%s, tar_prioridade=%s WHERE tar_id=%s',(nome, categoria, descricao, data_limite, status, prioridade, id) )
         conn.commit()
         conn.close()
     

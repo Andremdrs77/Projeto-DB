@@ -17,5 +17,5 @@ tar_data date,
 tar_data_limite date,
 tar_usr_id int not null,
 tar_status varchar(255),
-tar_prioridade varchar(255)
+tar_prioridade varchar(255),
 foreign key (tar_usr_id) references tb_usuarios(usr_id)); 

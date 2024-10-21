@@ -94,7 +94,7 @@ def add():
             Tarefa.add_tarefa(nome, categoria, desc, data_limite, status, prioridade, id)
             return redirect(url_for('dash'))
         except:
-            return 'Não foi possivél adicionar sua tarefa'
+            return 'Não foi possível adicionar sua tarefa'
         
     return render_template('add.html')
 
