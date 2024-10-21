@@ -24,20 +24,26 @@ def index():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+    registro =''
     if request.method=='POST':
         
 
         nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
+        
 
-        User.add(nome,email,senha)
+        try:
+            User.add(nome,email,senha)
+            registro = 'Registrado com sucesso'
+        except:
+            registro = 'Registro não realizado'
 
         user = User.select_get_by_email(email)
         login_user(user)
 
-        return redirect(url_for('index'))
-    return render_template('register.html')
+        return render_template('login.html', registro=registro)
+    return render_template('register.html',registro=registro)
 
 
 @app.route('/login',methods=['GET','POST'])
@@ -76,22 +82,23 @@ def dash():
 @app.route('/filter', methods=['GET', 'POST'])
 @login_required
 def filter():
+    user_id = current_user.id
     tarefas = []
     if request.method == 'POST':
         filtro = request.form['filtros']
         valor = request.form['Valor']
         if filtro == 'Nome':
-            tarefas = Tarefa.get_tarefa_by_nome(valor)
+            tarefas = Tarefa.get_tarefa_by_nome(valor, user_id)
         elif filtro == 'Categoria':
-            tarefas = Tarefa.get_tarefa_by_categoria(valor)
+            tarefas = Tarefa.get_tarefa_by_categoria(valor, user_id)
         elif filtro == 'Descrição':
-            tarefas = Tarefa.get_tarefa_by_descricao(valor)
+            tarefas = Tarefa.get_tarefa_by_descricao(valor, user_id)
         elif filtro == 'Prazo':
-            tarefas = Tarefa.get_tarefa_by_data_limite(valor)
+            tarefas = Tarefa.get_tarefa_by_data_limite(valor, user_id)
         elif filtro == 'Status':
-            tarefas = Tarefa.get_tarefa_by_status(valor)
+            tarefas = Tarefa.get_tarefa_by_status(valor, user_id)
         elif filtro == 'Prioridade':
-            tarefas = Tarefa.get_tarefa_by_prioridade(valor)
+            tarefas = Tarefa.get_tarefa_by_prioridade(valor, user_id)
 
         return render_template('filter.html', tarefas=tarefas)
     

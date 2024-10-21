@@ -61,7 +61,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background-color: brown; 
+            background-color: black; 
             border: none;
             border-radius: 5px;
             color: white;
@@ -106,7 +106,12 @@
                 <option value="Alta">Alta</option>
             </select>
 
-            <input type="text" name="categoria" placeholder="Categoria">
+            <select name="categoria" required>
+                <option value="Pessoal">Pessoal</option>
+                <option value="Trabalho">Trabalho</option>
+                <option value="Estudo">Estudo</option>
+            </select>
+
 
             <button type="submit">Enviar</button>
         </form>

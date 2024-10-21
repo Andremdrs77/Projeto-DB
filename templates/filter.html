@@ -43,7 +43,7 @@
             margin-top: 15px;
             margin-bottom: 10px;
             padding: 10px 15px;
-            background-color: brown;
+            background-color: black;
             border: none;
             border-radius: 5px;
             color: white;
@@ -85,10 +85,19 @@
             outline: none;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
         }
+        .nav{
+            
+            width:100%;
+            display:flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
-    <h1>Tarefas</h1>
+    <div class="nav">
+        <div><h1>Tarefas</h1></div>
+        <a href="{{ url_for('logout') }}"><button>Sair</button></a></div>
+    </div>
 
     <div class="action-buttons">
         <a href="{{ url_for('dash') }}"><button>Voltar</button></a>
@@ -135,45 +144,53 @@ function updateInput() {
     const filtroSelect = document.getElementById('filtros');
     const dynamicInput = document.getElementById('input');
 
-    
+    // Limpa o conteúdo anterior do dynamicInput
     dynamicInput.innerHTML = '<label for="Valor">Valor:</label>';
-    
-    const Valor = document.createElement(filtroSelect.value === 'Prioridade' || filtroSelect.value === 'Status' ? 'select' : 'input');
+
+    // Cria um novo campo input ou select
+    const Valor = document.createElement(filtroSelect.value === 'Prioridade' || filtroSelect.value === 'Status' || filtroSelect.value === 'Categoria' ? 'select' : 'input');
     Valor.id = 'Valor'; 
-    Valor.name ='Valor'
-    Valor.required = true; 
+    Valor.name = 'Valor';
+    Valor.required = true; // Define o campo como obrigatório
 
     switch (filtroSelect.value) {
         case 'Nome':
-        case 'Categoria':
         case 'Descrição':
             Valor.type = 'text';
-            Valor.name = 'Valor';
             break;
         case 'Prazo':
             Valor.type = 'date';
-            Valor.name = 'Valor';
             break;
         case 'Prioridade':
-        case 'Status':
-            const options = filtroSelect.value === 'Prioridade' 
-                ? ['Baixa', 'Média', 'Alta'] 
-                : ['Pendente', 'Em Progresso', 'Concluído'];
-            
-            options.forEach(option => {
+            ['Baixa', 'Média', 'Alta'].forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
                 opt.innerHTML = option;
                 Valor.appendChild(opt);
             });
-            dynamicInput.appendChild(Valor);
-            return; 
+            break;
+        case 'Status':
+            ['Pendente', 'Em Progresso', 'Concluída'].forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.innerHTML = option;
+                Valor.appendChild(opt);
+            });
+            break;
+        case 'Categoria':
+            ['Trabalho', 'Estudo', 'Pessoal'].forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.innerHTML = option;
+                Valor.appendChild(opt);
+            });
+            break;
         default:
             Valor.type = 'text'; 
-            Valor.name = 'Valor';
     }
 
     dynamicInput.appendChild(Valor);
 }
+
 </script>
 </html>

@@ -7,14 +7,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
+            color: white;
             font-size: 50px;
         }
         ul {
@@ -22,7 +20,7 @@
             padding: 0;
         }
         li {
-            background: white;
+            background: #1e1e1e;
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
@@ -30,20 +28,21 @@
         }
         p {
             margin: 5px 0;
+            color: white;
         }
         button {
             margin-right: 10px;
             margin-top: 15px;
             padding: 10px;
-            background-color: brown;
+            background-color: white;
             border: none;
             border-radius: 5px;
-            color: white;
+            color: black;
             cursor: pointer;
             font-size: 15px;
         }
         button a {
-            color: white;
+            color: black;
             text-decoration: none;
         }
         button:hover {
@@ -56,27 +55,39 @@
         .action-buttons button {
             width: 150px;
         }
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+            color: white;
+        }
+        select, input[type="text"], input[type="date"] {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            width: calc(200px - 20px);
+            margin-right: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        select:focus, input:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+        .nav{
+            
+            width:100%;
+            display:flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
-    <h1>Tarefas</h1>
-
-    <ul>
-    {% for tarefa in tarefas %}
-        <li>
-            <p>Nome: {{ tarefa[1] }}</p>
-            <p>Categoria: {{ tarefa[2] }}</p>
-            <p>Descrição: {{ tarefa[3] }}</p>
-            <p>Data de criação: {{ tarefa[4] }}</p>
-            <p>Prazo: {{ tarefa[5] }}</p>
-            <p>Status: {{ tarefa[7] }}</p>
-            <p>Prioridade: {{ tarefa[8] }}</p>
-            <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
-            <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
-        </li>
-    {% endfor %}
-    </ul>
-
+    <div class="nav">
+        <div><h1>Tarefas</h1></div>
+        <div><a href="{{ url_for('add') }}"><button>Adicionar tarefas</button></a>
+            <a href="{{ url_for('logout') }}"><button>Sair</button></a></div>
+    </div>
     <div class="action-buttons">
         <form method="POST" action="{{ url_for('filter') }}">
             <label for="filtros">Filtrar por:</label>
@@ -99,11 +110,26 @@
             <button type="submit">Filtrar</button>
         </form>
         </form>
-        <a href="{{ url_for('add') }}"><button>Adicionar tarefas</button></a>
-        <a href="{{ url_for('logout') }}"><button>Sair</button></a>
-
+       
     
     </div>
+    <ul>
+    {% for tarefa in tarefas %}
+        <li>
+            <p>Nome: {{ tarefa[1] }}</p>
+            <p>Categoria: {{ tarefa[2] }}</p>
+            <p>Descrição: {{ tarefa[3] }}</p>
+            <p>Data de criação: {{ tarefa[4] }}</p>
+            <p>Prazo: {{ tarefa[5] }}</p>
+            <p>Status: {{ tarefa[7] }}</p>
+            <p>Prioridade: {{ tarefa[8] }}</p>
+            <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
+            <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
+        </li>
+    {% endfor %}
+    </ul>
+
+
 </body>
 <script>
 
@@ -113,41 +139,47 @@ function updateInput() {
 
     // Limpa o conteúdo anterior do dynamicInput
     dynamicInput.innerHTML = '<label for="Valor">Valor:</label>';
-    
-    const Valor = document.createElement(filtroSelect.value === 'Prioridade' || filtroSelect.value === 'Status' ? 'select' : 'input');
+
+    // Cria um novo campo input ou select
+    const Valor = document.createElement(filtroSelect.value === 'Prioridade' || filtroSelect.value === 'Status' || filtroSelect.value === 'Categoria' ? 'select' : 'input');
     Valor.id = 'Valor'; 
-    Valor.name ='Valor'
+    Valor.name = 'Valor';
     Valor.required = true; // Define o campo como obrigatório
 
     switch (filtroSelect.value) {
         case 'Nome':
-        case 'Categoria':
         case 'Descrição':
             Valor.type = 'text';
-            Valor.name = 'Valor';
             break;
         case 'Prazo':
             Valor.type = 'date';
-            Valor.name = 'Valor';
             break;
         case 'Prioridade':
-            Valor.name = 'Valor';
-        case 'Status':
-            const options = filtroSelect.value === 'Prioridade' 
-                ? ['Baixa', 'Média', 'Alta'] 
-                : ['Pendente', 'Em Progresso', 'Concluído'];
-            
-            options.forEach(option => {
+            ['Baixa', 'Média', 'Alta'].forEach(option => {
                 const opt = document.createElement('option');
                 opt.value = option;
                 opt.innerHTML = option;
                 Valor.appendChild(opt);
             });
-            dynamicInput.appendChild(Valor);
-            return; 
+            break;
+        case 'Status':
+            ['Pendente', 'Em Progresso', 'Concluída'].forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.innerHTML = option;
+                Valor.appendChild(opt);
+            });
+            break;
+        case 'Categoria':
+            ['Trabalho', 'Estudo', 'Pessoal'].forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.innerHTML = option;
+                Valor.appendChild(opt);
+            });
+            break;
         default:
             Valor.type = 'text'; 
-            Valor.name = 'Valor';
     }
 
     dynamicInput.appendChild(Valor);

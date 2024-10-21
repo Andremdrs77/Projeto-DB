@@ -103,11 +103,11 @@ class Tarefa:
         conn.close()
     
     @classmethod #Opção 1
-    def get_tarefa_by_nome(cls, nome):
+    def get_tarefa_by_nome(cls, nome, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        query = 'SELECT * FROM tb_tarefas WHERE tar_nome LIKE %s'
-        cursor.execute(query, (f"%{nome}%",))
+        query = 'SELECT * FROM tb_tarefas WHERE tar_nome LIKE %s and tar_usr_id=%s'
+        cursor.execute(query, (f"%{nome}%", id,))
         tarefas = cursor.fetchall()
 
         cursor.close()
@@ -116,11 +116,11 @@ class Tarefa:
         return tarefas
     
     @classmethod #Opção 2
-    def get_tarefa_by_categoria(cls, categoria):
+    def get_tarefa_by_categoria(cls, categoria, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        query = 'SELECT * FROM tb_tarefas WHERE tar_categoria=%s'
-        cursor.execute(query, (categoria,))
+        query = 'SELECT * FROM tb_tarefas WHERE tar_categoria=%s and tar_usr_id=%s'
+        cursor.execute(query, (categoria, id,))
         tarefas = cursor.fetchall()
 
         cursor.close()
@@ -129,11 +129,11 @@ class Tarefa:
         return tarefas
     
     @classmethod #Opção 3
-    def get_tarefa_by_descricao(cls, descricao):
+    def get_tarefa_by_descricao(cls, descricao, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        query = 'SELECT * FROM tb_tarefas WHERE tar_descricao LIKE %s'
-        cursor.execute(query, (f"%{descricao}%",))
+        query = 'SELECT * FROM tb_tarefas WHERE tar_descricao LIKE %s and tar_usr_id=%s'
+        cursor.execute(query, (f"%{descricao}%", id, ))
         tarefas = cursor.fetchall()
 
         cursor.close()
@@ -142,11 +142,11 @@ class Tarefa:
         return tarefas
     
     @classmethod #Opção 4
-    def get_tarefa_by_data_limite(cls, data_limite):
+    def get_tarefa_by_data_limite(cls, data_limite, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        query = 'SELECT * FROM tb_tarefas WHERE tar_data_limite=%s'
-        cursor.execute(query, (data_limite,))
+        query = 'SELECT * FROM tb_tarefas WHERE tar_data_limite=%s and tar_usr_id=%s'
+        cursor.execute(query, (data_limite, id,))
         tarefas = cursor.fetchall()
 
         cursor.close()
@@ -155,11 +155,11 @@ class Tarefa:
         return tarefas
     
     @classmethod #Opção 5
-    def get_tarefa_by_status(cls, status):
+    def get_tarefa_by_status(cls, status, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        query = 'SELECT * FROM tb_tarefas WHERE tar_status=%s'
-        cursor.execute(query, (status,))
+        query = 'SELECT * FROM tb_tarefas WHERE tar_status=%s and tar_usr_id=%s'
+        cursor.execute(query, (status, id,))
         tarefas = cursor.fetchall()
 
         cursor.close()
@@ -168,11 +168,11 @@ class Tarefa:
         return tarefas
     
     @classmethod #Opção 6
-    def get_tarefa_by_prioridade(cls, prioridade):
+    def get_tarefa_by_prioridade(cls, prioridade, id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        query = 'SELECT * FROM tb_tarefas WHERE tar_prioridade=%s'
-        cursor.execute(query, (prioridade,))
+        query = 'SELECT * FROM tb_tarefas WHERE tar_prioridade=%s and tar_usr_id=%s'
+        cursor.execute(query, (prioridade, id,))
         tarefas = cursor.fetchall()
 
         cursor.close()
