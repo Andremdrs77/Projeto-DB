@@ -80,7 +80,7 @@ def dash():
 @login_required
 def add():
     if request.method=='POST':
-        user_id = current_user.id
+        id = current_user.id
         data = date.today()
         
         nome = request.form['nome']
@@ -91,10 +91,10 @@ def add():
         prioridade = request.form['prioridade']
 
         try:
-            Tarefa.add_tarefa(nome, categoria, desc, data_limite, status, prioridade, id)
+            Tarefa.add_tarefa(nome, categoria, desc, data, data_limite, status, prioridade, id)
             return redirect(url_for('dash'))
         except:
-            return 'Não foi possível adicionar sua tarefa'
+            return f'Não foi possível adicionar sua tarefa, {id}'
         
     return render_template('add.html')
 
