@@ -61,12 +61,14 @@ class User(UserMixin):
 
 class Tarefa:
     
-    def __init__(self, nome, descricao, data, data_limite, status, user_id):
+    def __init__(self, nome, categoria, descricao, data, data_limite, status, prioridade, user_id):
        self.nome = nome
+       self.categoria = categoria
        self.descricao = descricao
        self.data = data
        self.data_limite = data_limite
        self.status = status
+       self.prioridade = prioridade  
        self.user_id = user_id
 
     @classmethod
@@ -80,10 +82,10 @@ class Tarefa:
            return tarefas
 
     @classmethod
-    def add_tarefa(cls, nome, categoria, descricao, data, data_limite, status, prioridade user_id):
+    def add_tarefa(cls, nome, categoria, descricao, data, data_limite, status, prioridade, user_id):
         conn = obter_conexao()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO tb_tarefas (tar_nome, tar_descricao, tar_data, tar_data_limite,tar_status,tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s)',(nome,descricao,data,data_limite,status,user_id) )
+        cursor.execute('INSERT INTO tb_tarefas (tar_nome, tar_categoria, tar_descricao, tar_data, tar_data_limite,tar_status, tar_prioridade, tar_usr_id) VALUES (%s,%s,%s,%s,%s,%s)',(nome,descricao,data,data_limite,status,user_id) )
         conn.commit()
         conn.close()
     
