@@ -65,19 +65,22 @@
     {% for tarefa in tarefas %}
         <li>
             <p>Nome: {{ tarefa[1] }}</p>
-            <p>Descrição: {{ tarefa[2] }}</p>
-            <p>Data de criação: {{ tarefa[3] }}</p>
-            <p>Data limite: {{ tarefa[4] }}</p>
-            <p>Status: {{ tarefa[6] }}</p>
-            <button><a href="{{ url_for('update', id=tarefa[0]) }}">Modificar tarefa</a></button>
-            <button><a href="{{ url_for('delete', id=tarefa[0]) }}">Excluir tarefa</a></button>
+            <p>Categoria: {{ tarefa[2] }}</p>
+            <p>Descrição: {{ tarefa[3] }}</p>
+            <p>Data de criação: {{ tarefa[4] }}</p>
+            <p>Prazo: {{ tarefa[5] }}</p>
+            <p>Status: {{ tarefa[7] }}</p>
+            <p>Prioridade: {{ tarefa[8] }}</p>
+            <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
+            <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
         </li>
     {% endfor %}
     </ul>
 
     <div class="action-buttons">
-        <button><a href="{{ url_for('add') }}">Adicionar tarefas</a></button>
-        <button><a href="{{ url_for('logout') }}">Sair</a></button>
+        <a href="{{ url_for('add') }}"><button>Adicionar tarefas</button></a>
+        <a href="{{ url_for('logout') }}"><button>Sair</button></a>
+        <a href="{{ url_for('register') }}"><button>Filtrar</button></a>
     </div>
 </body>
 </html>

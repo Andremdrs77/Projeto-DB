@@ -97,6 +97,12 @@ class Tarefa:
         conn.commit()
         conn.close()
     
+    @classmethod #Opção 1
+    def get_tarefa_by_nome(cls, nome):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        cursor.execute(f'SELECT * FROM tb_tarefas WHERE tar_nome like "%{nome}%"')
+
     @classmethod
     def delete_tarefa(cls, id):
         conn = obter_conexao()
