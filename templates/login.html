@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda DB - Log-in</title>
+    <title>Agenda DB 📋 - Log-in</title>
     <style>
           body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             display: flex;
+            flex-direction:column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -79,10 +80,20 @@
                 font-size: 0.9rem; 
             }
         }
+        .nav{
+            
+            width:90%;
+            display:flex;
+            justify-content: right;
+            padding:20px 0;
+        }
+        
     </style>
 </head>
 <body>
-
+    <div class="nav">
+        <a href="{{ url_for('index') }}"><button>Voltar</button></a>
+    </div>
     <div class="container">
         <h1>Log-in</h1>
         <form action="{{url_for('login')}}" method="post">

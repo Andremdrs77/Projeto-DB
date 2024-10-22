@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda DB - Dashboard</title>
+    <title>Agenda DB 📋 - Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
         }
         h1 {
             color: white;
-            font-size: 50px;
+            font-size: 40px;
         }
         ul {
             list-style-type: none;
@@ -85,6 +85,7 @@
             width:100%;
             display:flex;
             justify-content: space-between;
+            
         }
         .nav button{
             color: black;
@@ -129,7 +130,7 @@
 </head>
 <body>
     <div class="nav">
-        <div><h1>Tarefas</h1></div>
+        <div><h1>Tarefas📌 </h1></div>
         <div>
         </br></br>
             <a href="{{ url_for('dash') }}"><button>Voltar</button></a>
@@ -179,7 +180,7 @@
             </br>
             <div style="text-align: center;">
             </br>
-            <button >Enviar</button>
+            <button >Filtrar</button>
             </br>
             </div>
         </form></div>
@@ -216,7 +217,7 @@
                     <td>
                         <a href="{{ url_for('update', id=tarefa[0], nome=tarefa[1], categoria=tarefa[2], descricao = tarefa[3], data_limite = tarefa[5], status=tarefa[7], prioridade=tarefa[8])}}"><button>Modificar tarefa</button></a>
                         <br>
-                        <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
+                        <a href="{{ url_for('delete', id=tarefa[0]) }}"  onclick="return confirmDelete()"><button>Excluir tarefa</button></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -224,5 +225,10 @@
     </table>
 
 </body>
+<script>
+    function confirmDelete() {
+        return confirm("Você tem certeza que deseja excluir esta tarefa?");
+    }
+</script>
 
 </html>

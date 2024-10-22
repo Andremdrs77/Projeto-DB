@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda DB - Adicionar Tarefas</title>
+    <title>Agenda DB 📋 - Adicionar Tarefas</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212; 
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 20px;
             display: flex;
+            flex-direction:column;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            color: #ffffff; 
+            height: 100vh;
+            background-color: #121212; 
         }
+        
         .container {
             background: #1e1e1e; 
             padding: 25px;
@@ -89,16 +89,25 @@
             font-size:12px;
             margin-left:10px;
         }
+        .nav{
+            width:90%;
+            display:flex;
+            justify-content: right;
+            padding:20px;
+        }
     </style>
 </head>
 <body>
+    <div class="nav">
+        <a href="{{ url_for('dash') }}"><button>Voltar</button></a>
+    </div>
     <div class="container">
         <h1>Adicionar Tarefas</h1>
         <form action="{{url_for('add')}}" method="post">
             <label for="nome">Nome</label>
             <input type="text" name="nome" id = "nome" placeholder="Nome da tarefa" required>
-            <label for="descricao">Descrição</label>
-            <input type="text" id='descricao' name="desc" placeholder="Descrição">
+            <label for="descricao">Descrição</label >
+            <input type="text" id='descricao' name="desc" placeholder="Descrição" required>
             <label for="data">Prazo</label>
             <input type="date" id="data" name="data_limite">
 

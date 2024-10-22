@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda DB - Modificar Tarefa</title>
+    <title>Agenda DB 📋 - Modificar Tarefa</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             display: flex;
+            flex-direction:column;
             justify-content: center;
             align-items: center;
-            background-color: #121212;
-            color: #ffffff; 
+            height: 100vh;
+            background-color: #121212; 
         }
         .container {
             background-color: #1e1e1e; 
@@ -89,17 +90,28 @@
                 font-size: 0.9rem; 
             }
         }
+        .nav{
+            
+            width:90%;
+            display:flex;
+            justify-content: right;
+            padding:  30px;
+            margin-top:30px;
+            
+        }
     </style>
 </head>
 <body>
-
+    <div class="nav">
+        <a href="{{ url_for('dash') }}"><button>Voltar</button></a>
+    </div>
     <div class="container">
         <h1>Modificar tarefa</h1>
         <form method="POST">
             <label for="nome">Nome</label>
             <input type="text" name="nome" id="nome" value="{{nome}}" required placeholder='Nome'>
             <label for="descricao">Descrição</label>
-            <input type="text" name="desc" id="descricao" placeholder="Descrição" value="{{descricao}}">
+            <input type="text" name="desc" id="descricao" placeholder="Descrição" value="{{descricao}}" required>
             <label for="data">Prazo</label>
             <input type="date" name="data_limite" id="data" value="{{data_limite}}">
 
