@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'MUITODIFICIL'
 
 
-
 login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
@@ -79,30 +78,44 @@ def dash():
     return render_template('dash.html', tarefas=tarefas)
 
 
-@app.route('/filter', methods=['GET', 'POST'])
+@app.route('/select', methods=['GET', 'POST'])
 @login_required
-def filter():
+def select():
     user_id = current_user.id
-    tarefas = []
-    if request.method == 'POST':
-        filtro = request.form['filtros']
-        valor = request.form['Valor']
-        if filtro == 'Nome':
-            tarefas = Tarefa.get_tarefa_by_nome(valor, user_id)
-        elif filtro == 'Categoria':
-            tarefas = Tarefa.get_tarefa_by_categoria(valor, user_id)
-        elif filtro == 'Descrição':
-            tarefas = Tarefa.get_tarefa_by_descricao(valor, user_id)
-        elif filtro == 'Prazo':
-            tarefas = Tarefa.get_tarefa_by_data_limite(valor, user_id)
-        elif filtro == 'Status':
-            tarefas = Tarefa.get_tarefa_by_status(valor, user_id)
-        elif filtro == 'Prioridade':
-            tarefas = Tarefa.get_tarefa_by_prioridade(valor, user_id)
-
-        return render_template('filter.html', tarefas=tarefas)
-    
-    return render_template('filter.html', tarefas=tarefas)
+    if request.method=='POST':
+        status = request.form['status']
+        data = request.form['data']
+        prioridade = request.form['prioridade']
+        palavras = request.form['palavras']
+        categoria = request.form['categoria']
+        
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        query = ('SELECT * FROM tb_tarefas WHERE tar_usr_id=%s')
+        params = [user_id]
+        
+        if status and status !='Todos':
+            query += ' AND tar_status=%s'
+            params.append(status)
+        if data:
+            query += ' AND tar_data_limite=%s'
+            params.append(data)
+        if prioridade and prioridade !='Todos':
+            query += ' AND tar_prioridade=%s'
+            params.append(prioridade)
+        if palavras :
+            query += ' AND tar_nome LIKE %s'
+            params.append(f'%{palavras}%')
+        if categoria and categoria != 'Todas':
+            query += ' AND tar_categoria=%s'
+            params.append(categoria)
+        
+        cursor.execute(query,params)
+        tarefas = cursor.fetchall()
+        conn.close()
+        
+        return render_template('dash.html', tarefas=tarefas)
+    return render_template('dash.html')
         
 
 @app.route('/add',methods=['GET','POST'])
