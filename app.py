@@ -153,9 +153,9 @@ def add():
     return render_template('add.html')
 
 
-@app.route('/update/<int:id>',methods=['GET','POST'])
+@app.route('/update/<int:id>/<string:nome>/<string:categoria>/<string:descricao>/<string:data_limite>/<string:status>/<string:prioridade>',methods=['GET','POST'])
 @login_required
-def update(id):
+def update(id, nome, categoria,  descricao, data_limite, status, prioridade):
     if request.method == 'POST':
         nome = request.form['nome']
         categoria = request.form['categoria']
@@ -166,7 +166,7 @@ def update(id):
 
         Tarefa.update_tarefa(nome, categoria, desc, data_limite, status, prioridade, id)
         return redirect(url_for('dash'))
-    return render_template('update.html',)
+    return render_template('update.html', nome=nome, categoria=categoria, descricao=descricao, data_limite=data_limite, status=status, prioridade=prioridade)
 
 
 @app.route('/delete/<int:id>')

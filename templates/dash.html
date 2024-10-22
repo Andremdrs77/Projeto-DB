@@ -50,11 +50,12 @@
         }
         .action-buttons {
             margin-top: 20px;
-            text-align: left;
+            text-align: center;
             color:white;
         }
+        
         .action-buttons button {
-            width: 150px;
+            width: 200px;
         }
         label {
             margin-right: 10px;
@@ -131,7 +132,7 @@
     <div class="action-buttons">
         <h2>Filtrar por </h2>
         <form action="{{url_for('select')}}" method="post">
-            <label for="nome">Nome</label>
+            <div><label for="nome">Nome</label>
             <input type="text" name="nome" id="nome">
 
             <label for="status">Status</label>
@@ -141,17 +142,19 @@
                     <option value="Em andamento">Em andamento</option>
                     <option value="Pendente">Pendente</option>
                 </select>
-        
-            <label for="data">Data</label>
-                <input type="date" name="data" id="data">
-        
+            
             <label for="prioridade">Prioridade</label>
             <select name="prioridade" id="prioridade">
-                <option value="Todos">Todos</option>
-                <option value="Alta">Alta</option>
-                <option value="Média">Média</option>
-                <option value="Baixa">Baixa</option>
-            </select>
+                    <option value="Todos">Todos</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
+            </select></div>
+        
+            <div><label for="data">Data</label>
+                <input type="date" name="data" id="data">
+        
+            
         
             <label for="palavras">Palavras chave</label>
             <input type="text" name="palavras" id="palavras">
@@ -169,7 +172,7 @@
             <button >Enviar</button>
             </br>
             </div>
-        </form>
+        </form></div>
         <br>
 
         <div style="text-align: right;">
@@ -201,7 +204,7 @@
                     <td>{{ tarefa[7] }}</td>
                     <td>{{ tarefa[8] }}</td>
                     <td>
-                        <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
+                        <a href="{{ url_for('update', id=tarefa[0], nome=tarefa[1], categoria=tarefa[2], descricao = tarefa[3], data_limite = tarefa[5], status=tarefa[7], prioridade=tarefa[8])}}"><button>Modificar tarefa</button></a>
                         <br>
                         <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
                     </td>
