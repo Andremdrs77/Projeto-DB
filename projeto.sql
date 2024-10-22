@@ -12,7 +12,7 @@ create table tb_tarefas(
 tar_id int primary key auto_increment not null,
 tar_nome varchar(255),
 tar_categoria varchar(255),
-tar_descricao text,
+tar_descricao varchar(255),
 tar_data date,
 tar_data_limite date,
 tar_usr_id int not null,

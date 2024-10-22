@@ -32,6 +32,7 @@ class User(UserMixin):
             user.id = dados[0]
         else:
             dados = None
+            user = None
         return user
 
     @classmethod
