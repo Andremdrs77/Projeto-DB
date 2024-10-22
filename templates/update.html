@@ -11,7 +11,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #121212;
             color: #ffffff; 
         }
@@ -36,7 +35,7 @@
         input[type="text"], input[type="date"] {
             width: 95%;
             padding: 12px;
-            margin: 10px 0;
+            margin: 5px 0;
             border: 1px solid #444; 
             border-radius: 5px;
             background-color: #333; 
@@ -48,11 +47,12 @@
         select{
             width: 102%;
             padding: 12px;
-            margin: 10px 0;
+            margin: 5px 0;
             border: 1px solid #444; 
             border-radius: 5px;
             background-color: #333; 
-            color: #ffffff; 
+            color: #ffffff;
+            font-size: 1rem; 
             transition: border-color 0.3s;
         }
 
@@ -104,7 +104,7 @@
             <input type="date" name="data_limite" id="data" value="{{data_limite}}">
 
             <label for="status">Status</label>
-            <select name="status" id="status"  required>
+            <select name="status" id="status" required>
                 <option value="{{status}}">{{status}}</option>
                 <option value="Em andamento">Em andamento</option>
                 <option value="Pendente">Pendente</option>
