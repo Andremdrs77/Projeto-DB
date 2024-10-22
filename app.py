@@ -31,17 +31,25 @@ def register():
         email = request.form['email']
         senha = request.form['senha']
         
+        
 
-        try:
+        
+        user = User.select_get_by_email(email)  
+        if user:
+            
+            registro = 'Email já cadastrado no sistema'
+            return render_template('register.html', registro=registro)
+
+        else:
             User.add(nome,email,senha)
             registro = 'Registrado com sucesso'
-        except:
-            registro = 'Registro não realizado'
+            user = User.select_get_by_email(email)
+            login_user(user)
 
-        user = User.select_get_by_email(email)
-        login_user(user)
-
-        return render_template('login.html', registro=registro)
+            return render_template('login.html', registro=registro)
+        
+        
+        
     return render_template('register.html',registro=registro)
 
 
@@ -50,18 +58,18 @@ def login():
     texto = ''
     if request.method=='POST':
 
-        #nome = request.form['nome']
+        nome = request.form['nome']
         email = request.form['email']
         senha = request.form['senha']
 
         user = User.select_get_by_email(email)
         if user:
-            if senha==user.senha:
+            if senha==user.senha and user.nome==nome:
                 login_user(user)
                 data = date.today()
                 return redirect(url_for('dash', data=data))
             else:
-                texto = 'Senha incorreta'
+                texto = 'Senha ou usuário incorretos'
                 return render_template('login.html',texto=texto)
                 
         else:

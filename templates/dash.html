@@ -26,41 +26,27 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        p {
-            margin: 5px 0;
-            color: white;
-        }
         button {
-            margin-right: 10px;
-            margin-top: 15px;
-            padding: 5px;
-            background-color: white;
-            border: none;
+            padding: 10px 15px;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
             border-radius: 5px;
-            color: black;
+            color: white;
             cursor: pointer;
             font-size: 15px;
+            transition: background-color 0.3s;
         }
         button a {
-            color: black;
+            color: white;
             text-decoration: none;
         }
         button:hover {
-            background-color: black;
-            color: white;
-            transition: .5s;
-        }
-        button:not(:hover) {
-            transition: 1.2s;
+            background-color: gray;
         }
         .action-buttons {
             margin-top: 20px;
-            text-align: center;
+            text-align: left;
             color:white;
-            
-            
-            font-size:12px;
-                      
         }
         .action-buttons button {
             width: 150px;
@@ -76,8 +62,9 @@
             border-radius: 5px;
             width: calc(200px - 20px);
             margin-right: 10px;
-            font-size: 16px;
+            font-size: 13px;
             margin-bottom: 10px;
+            background-color: gainsboro;
         }
         select:focus, input:focus {
             border-color: #80bdff;
@@ -90,16 +77,54 @@
             display:flex;
             justify-content: space-between;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; 
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(127, 127, 127, 0.5);
+            
+        }
+        
+        th {
+            background-color: #1e1e1e;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #444; 
+            color: white;
+           
+           
+        }
+        td {
+            padding: 5px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #444;
+            border-right: 1px solid #444;
+            padding:10px;
+            background-color: rgb(97, 94, 94);
+            color:white;
+        
+            
+        }
+        td:last-child {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
     </style>
 </head>
 <body>
     <div class="nav">
         <div><h1>Tarefas</h1></div>
-        <div><a href="{{ url_for('add') }}"><button>Adicionar tarefas</button></a>
-            <a href="{{ url_for('logout') }}"><button>Sair</button></a></div>
+        <div>
+        </br></br>
+            <a href="{{ url_for('dash') }}"><button>Voltar</button></a>
+            <a href="{{ url_for('logout') }}"><button>Sair</button></a>
+        </div>
     </div>
     <div class="action-buttons">
-       <h2>Filtrar por </h2>
+        <h2>Filtrar por </h2>
         <form action="{{url_for('select')}}" method="post">
             <label for="status">Status</label>
                 <select name="status" id="status">
@@ -130,27 +155,52 @@
                 <option value="Estudo">Estudo</option>
                 <option value="Pessoal">Pessoal</option>
             </select>
-        
-            <button>Enviar</button>
+            </br>
+            <div style="text-align: center;">
+            </br>
+            <button >Enviar</button>
+            </br>
+            </div>
         </form>
-    
-    </div>
-    <ul>
-    {% for tarefa in tarefas %}
-        <li>
-            <p>Nome: {{ tarefa[1] }}</p>
-            <p>Categoria: {{ tarefa[2] }}</p>
-            <p>Descrição: {{ tarefa[3] }}</p>
-            <p>Data de criação: {{ tarefa[4] }}</p>
-            <p>Prazo: {{ tarefa[5] }}</p>
-            <p>Status: {{ tarefa[7] }}</p>
-            <p>Prioridade: {{ tarefa[8] }}</p>
-            <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
-            <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
-        </li>
-    {% endfor %}
-    </ul>
+        <br>
 
+        <div style="text-align: right;">
+            <a href="{{ url_for('add') }}"><button>+ Adicionar Tarefa</button></a>
+        </div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Data de Criação</th>
+                <th>Prazo</th>
+                <th>Status</th>
+                <th>Prioridade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tarefa in tarefas %}
+                <tr>
+                    <td>{{ tarefa[1] }}</td>
+                    <td>{{ tarefa[2] }}</td>
+                    <td>{{ tarefa[3] }}</td>
+                    <td>{{ tarefa[4] }}</td>
+                    <td>{{ tarefa[5] }}</td>
+                    <td>{{ tarefa[7] }}</td>
+                    <td>{{ tarefa[8] }}</td>
+                    <td>
+                        <a href="{{ url_for('update', id=tarefa[0]) }}"><button>Modificar tarefa</button></a>
+                        <br>
+                        <a href="{{ url_for('delete', id=tarefa[0]) }}"><button>Excluir tarefa</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </body>
 
