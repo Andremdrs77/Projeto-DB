@@ -91,6 +91,7 @@ def dash():
 def select():
     user_id = current_user.id
     if request.method=='POST':
+        nome = request.form['nome']
         status = request.form['status']
         data = request.form['data']
         prioridade = request.form['prioridade']
@@ -105,13 +106,16 @@ def select():
         if status and status !='Todos':
             query += ' AND tar_status=%s'
             params.append(status)
+        if nome:
+            query += ' AND tar_nome LIKE %s'
+            params.append(nome)
         if data:
             query += ' AND tar_data_limite=%s'
             params.append(data)
         if prioridade and prioridade !='Todos':
             query += ' AND tar_prioridade=%s'
             params.append(prioridade)
-        if palavras :
+        if palavras:
             query += ' AND tar_descricao LIKE %s'
             params.append(f'%{palavras}%')
         if categoria and categoria != 'Todas':
