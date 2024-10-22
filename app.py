@@ -112,7 +112,7 @@ def select():
             query += ' AND tar_prioridade=%s'
             params.append(prioridade)
         if palavras :
-            query += ' AND tar_nome LIKE %s'
+            query += ' AND tar_descricao LIKE %s'
             params.append(f'%{palavras}%')
         if categoria and categoria != 'Todas':
             query += ' AND tar_categoria=%s'
