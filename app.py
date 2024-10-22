@@ -166,7 +166,7 @@ def update(id):
 
         Tarefa.update_tarefa(nome, categoria, desc, data_limite, status, prioridade, id)
         return redirect(url_for('dash'))
-    return render_template('update.html')
+    return render_template('update.html',)
 
 
 @app.route('/delete/<int:id>')

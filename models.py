@@ -102,3 +102,11 @@ class Tarefa:
 
         conn.commit()
         conn.close()
+
+    @classmethod
+    def delete_tarefa(cls, id):
+        conn = obter_conexao()
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM tb_tarefas WHERE tar_id=%s',(id,) )
+
+        conn.commit()
